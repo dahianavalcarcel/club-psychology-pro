@@ -28,6 +28,9 @@ import initBigFiveTest    from './test/bigFive';
 import initCohesionTest   from './test/cohesion';
 import initMonitorTest    from './test/monitor';
 
+import '../vendor/bigfive.bundle.js';
+import '../vendor/bigfive-es.js';
+
 import { ajaxAction }     from './utils/ajax';
 import { qs, on }         from './utils/dom';
 import { debounce, showMessage } from './utils/helpers';
