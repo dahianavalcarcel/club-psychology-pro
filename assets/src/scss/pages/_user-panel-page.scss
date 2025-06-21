@@ -1,0 +1,32 @@
+// assets/src/scss/pages/_user-panel-page.scss
+
+.user-panel-page {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  .user-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    .new-test-btn {
+      @include button-primary;
+    }
+  }
+
+  .user-tests-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+
+    .test-card {
+      @extend .test-card; // reutiliza tu componente TestCard
+    }
+  }
+}

@@ -1,0 +1,51 @@
+// assets/src/scss/components/_user-panel.scss
+
+.cpp-user-panel {
+  margin-bottom: 2rem;
+
+  &-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $cpp-primary-color;
+  }
+
+  &-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .cpp-user-panel-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .cpp-test-name {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .cpp-test-status {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+
+        &--pending {
+          color: $cpp-info-color;
+        }
+        &--completed {
+          color: $cpp-success-color;
+        }
+      }
+
+      .cpp-btn {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

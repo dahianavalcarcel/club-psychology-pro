@@ -1,0 +1,58 @@
+// assets/src/scss/pages/_settings-page.scss
+
+.settings-page {
+  display: flex;
+  padding: 2rem;
+
+  .settings-sidebar {
+    width: 250px;
+    margin-right: 2rem;
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        margin-bottom: 1rem;
+        a {
+          display: block;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          &:hover, &.active {
+            background: rgba(0,0,0,0.05);
+          }
+        }
+      }
+    }
+  }
+
+  .settings-content {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+    h2 {
+      margin-bottom: 1.5rem;
+    }
+    form {
+      .form-group {
+        margin-bottom: 1rem;
+        label {
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+          display: block;
+        }
+        input, select, textarea {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+      }
+
+      .submit-btn {
+        @include button-primary;
+      }
+    }
+  }
+}

@@ -1,1 +1,96 @@
-// Placeholder content for package.json
+{
+  "name": "club-psychology-pro-assets",
+  "version": "2.0.0",
+  "description": "Frontend assets for Club Psychology Pro WordPress plugin",
+  "private": true,
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --mode=production",
+    "dev": "cross-env NODE_ENV=development webpack --mode=development",
+    "watch": "cross-env NODE_ENV=development webpack --mode=development --watch",
+    "start": "cross-env NODE_ENV=development webpack serve --mode=development",
+    "analyze": "webpack-bundle-analyzer dist/js/*.js",
+    "clean": "rimraf dist",
+    "lint:js": "eslint assets/src/js/**/*.js --fix",
+    "lint:css": "stylelint assets/src/scss/**/*.scss --fix",
+    "format": "prettier --write assets/src/**/*.{js,scss,css}",
+    "precommit": "lint-staged"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "psychology",
+    "tests",
+    "frontend",
+    "assets"
+  ],
+  "author": "Aquea Team <dev@aquea.org>",
+  "license": "GPL-2.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aquea/club-psychology-pro.git"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/plugin-proposal-class-properties": "^7.18.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.0",
+    "@babel/preset-env": "^7.22.0",
+    "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.0",
+    "browser-sync": "^2.29.0",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.8.0",
+    "cssnano": "^6.0.0",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.0",
+    "file-loader": "^6.2.0",
+    "lint-staged": "^13.2.0",
+    "mini-css-extract-plugin": "^2.7.0",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "postcss": "^8.4.24",
+    "postcss-loader": "^7.3.0",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.0",
+    "sass": "^1.63.0",
+    "sass-loader": "^13.3.0",
+    "style-loader": "^3.3.0",
+    "stylelint": "^15.6.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
+    "terser-webpack-plugin": "^5.3.0",
+    "webpack": "^5.87.0",
+    "webpack-bundle-analyzer": "^4.9.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.3.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^2.30.0",
+    "swiper": "^9.4.0",
+    "tippy.js": "^6.3.7"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "ie >= 11",
+    "not dead"
+  ],
+  "lint-staged": {
+    "assets/src/js/**/*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "assets/src/scss/**/*.scss": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

@@ -1,0 +1,57 @@
+// assets/src/scss/components/_test-form.scss
+
+.cpp-test-form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid #e2e2e2;
+  border-radius: $cpp-border-radius;
+  background: #fafafa;
+
+  legend {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $cpp-primary-color;
+  }
+
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    & + fieldset {
+      margin-top: 1.5rem;
+    }
+  }
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #444;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: $cpp-border-radius;
+    transition: border-color $cpp-transition;
+
+    &:focus {
+      outline: none;
+      border-color: $cpp-primary-color;
+    }
+  }
+
+  .cpp-btn {
+    display: block;
+    width: auto;
+    margin: 1rem 0 0;
+  }
+}

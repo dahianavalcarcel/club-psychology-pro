@@ -1,0 +1,36 @@
+// assets/src/scss/pages/_test-form-page.scss
+
+.test-form-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .test-form-header {
+    margin-bottom: 1.5rem;
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .cpp-test-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+
+    .form-section {
+      margin-bottom: 1.5rem;
+      h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+    }
+
+    .form-actions {
+      text-align: right;
+      button {
+        @include button-primary;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+// assets/src/scss/components/_test-card.scss
+
+.cpp-test-card {
+  border: 1px solid #ddd;
+  border-radius: $cpp-border-radius;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow $cpp-transition;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  &-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: $cpp-primary-color;
+  }
+
+  &-body {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .cpp-btn {
+      margin-left: 0.5rem;
+    }
+  }
+}
