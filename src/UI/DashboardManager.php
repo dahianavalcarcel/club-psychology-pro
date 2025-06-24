@@ -2,6 +2,12 @@
 namespace ClubPsychologyPro\UI;
 
 use ClubPsychologyPro\Core\Plugin;
+use ClubPsychologyPro\Tests\TestManager;
+use ClubPsychologyPro\Users\UserManager;
+use ClubPsychologyPro\WhatsApp\WhatsAppManager;
+use ClubPsychologyPro\UI\Admin\TestManagement;
+use ClubPsychologyPro\UI\Admin\UserManagement;
+use ClubPsychologyPro\UI\Admin\SettingsPage;
 
 /**
  * Class DashboardManager
@@ -11,7 +17,7 @@ use ClubPsychologyPro\Core\Plugin;
 class DashboardManager
 {
     /**
-     * Initialize hooks
+     * Hookea los métodos de este manager a WordPress.
      */
     public static function init(): void
     {
@@ -20,17 +26,17 @@ class DashboardManager
     }
 
     /**
-     * Register the main dashboard and its subpages
+     * Registra el menú principal y sus subpáginas.
      */
     public static function registerAdminMenu(): void
     {
         $capability = 'manage_options';
         $slug       = 'cpp_dashboard';
 
-        // Main menu page
+        // Menú principal
         add_menu_page(
-            __('Psychology Pro', Plugin::TEXT_DOMAIN),
-            __('Psychology Pro', Plugin::TEXT_DOMAIN),
+            __('Psychology Pro', CPP_TEXT_DOMAIN),
+            __('Psychology Pro', CPP_TEXT_DOMAIN),
             $capability,
             $slug,
             [self::class, 'renderDashboard'],
@@ -38,31 +44,31 @@ class DashboardManager
             60
         );
 
-        // Submenu: Test Management
+        // Submenú: Gestión de Tests
         add_submenu_page(
             $slug,
-            __('Manage Tests', Plugin::TEXT_DOMAIN),
-            __('Tests', Plugin::TEXT_DOMAIN),
+            __('Manage Tests', CPP_TEXT_DOMAIN),
+            __('Tests', CPP_TEXT_DOMAIN),
             $capability,
             'cpp_test_management',
             [TestManagement::class, 'render']
         );
 
-        // Submenu: User Management
+        // Submenú: Gestión de Usuarios
         add_submenu_page(
             $slug,
-            __('Manage Users', Plugin::TEXT_DOMAIN),
-            __('Users', Plugin::TEXT_DOMAIN),
+            __('Manage Users', CPP_TEXT_DOMAIN),
+            __('Users', CPP_TEXT_DOMAIN),
             $capability,
             'cpp_user_management',
             [UserManagement::class, 'render']
         );
 
-        // Submenu: Settings
+        // Submenú: Configuraciones
         add_submenu_page(
             $slug,
-            __('Settings', Plugin::TEXT_DOMAIN),
-            __('Settings', Plugin::TEXT_DOMAIN),
+            __('Settings', CPP_TEXT_DOMAIN),
+            __('Settings', CPP_TEXT_DOMAIN),
             $capability,
             'cpp_settings',
             [SettingsPage::class, 'render']
@@ -70,14 +76,13 @@ class DashboardManager
     }
 
     /**
-     * Enqueue admin styles and scripts
+     * Encola estilos y scripts solo en las páginas de nuestro plugin.
      *
      * @param string $hook_suffix
      */
     public static function enqueueAssets(string $hook_suffix): void
     {
-        // Only load on our plugin pages
-        if (!in_array($hook_suffix, [
+        if (! in_array($hook_suffix, [
             'toplevel_page_cpp_dashboard',
             'cpp_page_cpp_test_management',
             'cpp_page_cpp_user_management',
@@ -86,13 +91,13 @@ class DashboardManager
             return;
         }
 
-        $version = Plugin::VERSION;
-        $urlBase = Plugin::assetUrl('admin');
+        $version = CPP_VERSION;
+        $urlBase = CPP_DIST_URL;
 
-        // Styles
+        // Estilos
         wp_enqueue_style(
             'cpp-admin-styles',
-            "$urlBase/css/admin.css",
+            "{$urlBase}css/admin.css",
             [],
             $version
         );
@@ -100,7 +105,7 @@ class DashboardManager
         // Scripts
         wp_enqueue_script(
             'cpp-admin-scripts',
-            "$urlBase/js/admin.js",
+            "{$urlBase}js/admin.js",
             ['jquery'],
             $version,
             true
@@ -108,17 +113,18 @@ class DashboardManager
     }
 
     /**
-     * Render the dashboard overview page
+     * Renderiza la página principal del dashboard.
      */
     public static function renderDashboard(): void
     {
-        // Pass data to view if needed
+        // Obtener estadísticas con los managers
         $stats = [
-            'total_tests' => TestManager::countAll(),
-            'active_users'=> UserManager::countActive(),
+            'total_tests'        => TestManager::countAll(),
+            'active_users'       => UserManager::countActive(),
             'sent_notifications' => WhatsAppManager::countSent(),
         ];
 
+        // Carga la plantilla pasando $stats
         include Plugin::template('admin/dashboard-overview.php', $stats);
     }
 }

@@ -15,27 +15,29 @@
  *   cppData.config    – Configuración adicional (debug, locale, etc.)
  */
 
-// assets/src/js/main.js
-
-import initDashboard      from './components/dashboard';
-import initSettingsPage   from './components/settingsPage';
-
-import initTestForm       from './components/testForm';
-import initResultViewer   from './components/resultViewer';
-import initUserPanel      from './components/userPanel';
-
-import initBigFiveTest    from './test/bigFive';
-import initCohesionTest   from './test/cohesion';
-import initMonitorTest    from './test/monitor';
-
+// Carga de vendors (asegúrate de que estos archivos existan en tu carpeta `assets/src/vendor`)
 import '../vendor/bigfive.bundle.js';
 import '../vendor/bigfive-es.js';
 
-import { ajaxAction }     from './utils/ajax';
-import { qs, on }         from './utils/dom';
+// Componentes globales
+import initDashboard    from './components/dashboard';
+import initSettingsPage from './components/settingsPage';
+
+// Componentes de shortcodes/páginas
+import initTestForm     from './components/testForm';
+import initResultViewer from './components/resultViewer';
+import initUserPanel    from './components/userPanel';
+
+// Inits de tests concretos
+import initBigFiveTest  from './test/bigFive';
+import initCohesionTest from './test/cohesion';
+import initMonitorTest  from './test/monitor';
+
+// Utilidades
+import { ajaxAction }   from './utils/ajax';
+import { qs, on }       from './utils/dom';
 import { debounce, showMessage } from './utils/helpers';
-import { parseQuery }     from './utils/url';
-import { subscribe }      from './utils/events';
+import { parseQuery }   from './utils/url';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1) Inicializaciones globales
@@ -69,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5) Formularios y paneles dinámicos
   bindTestForm();
   loadUserPanel();
+  bindResultButtons();
+  bindToggleTestForm();
 });
 
 /**
@@ -128,12 +132,11 @@ function loadUserPanel() {
         html += `
           <li class="cpp-test-item">
             <strong>${test.name}</strong> — ${test.status}
-            <button class="cpp-btn-view-result" data-id="${test.result_id}">Ver resultado</button>
+            <button class="button cpp-btn-view-result" data-id="${test.result_id}">Ver resultado</button>
           </li>`;
       });
-      html += '</ul><div id="cpp-result-container"></div>';
+      html += '</ul><div id="cpp-result-container" style="margin-top:1em;"></div>';
       $panel.html(html);
-      bindResultButtons();
     } else {
       $panel.html('<p>No hay tests disponibles.</p>');
     }
@@ -147,7 +150,7 @@ function loadUserPanel() {
  * Vincular botones "Ver resultado" para cargarlo vía AJAX
  */
 function bindResultButtons() {
-  $('.cpp-btn-view-result').on('click', function() {
+  $(document).on('click', '.cpp-btn-view-result', function() {
     const resultId = $(this).data('id');
     const $container = $('#cpp-result-container');
     $container.html('<p class="cpp-loading">Cargando resultado...</p>');
@@ -171,5 +174,24 @@ function bindResultButtons() {
     .fail(() => {
       $container.html('<p class="cpp-error">Error de red</p>');
     });
+  });
+}
+
+/**
+ * Mostrar/ocultar el formulario inline
+ */
+function bindToggleTestForm() {
+  console.log('bindToggleTestForm');
+  const btn = document.querySelector('.js-open-test-form');
+  const formContainer = document.getElementById('cpp-test-form-container');
+
+  if (!btn || !formContainer) return;
+
+  btn.addEventListener('click', () => {
+    const isHidden = formContainer.style.display === 'none' || !formContainer.style.display;
+    formContainer.style.display = isHidden ? 'block' : 'none';
+    if (isHidden) {
+      formContainer.scrollIntoView({ behavior: 'smooth' });
+    }
   });
 }
